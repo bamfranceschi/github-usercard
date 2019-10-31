@@ -18,6 +18,21 @@
            create a new component and add it to the DOM as a child of .cards
 */
 
+const cardsDiv = document.querySelector(".cards");
+
+// axios.get("https://api.github.com/users/bamfranceschi").then(response => {
+//   response.data.forEach(item => {
+//     const newSocCard = createSocialCard(item);
+//     cardsDiv.appendChild(newSocCard);
+//   });
+// });
+
+axios.get("https://api.github.com/users/bamfranceschi").then(response => {
+  let myInfo = response.data;
+  const newSocCard = createSocialCard(myInfo);
+  cardsDiv.appendChild(newSocCard);
+});
+
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -55,6 +70,7 @@ function createSocialCard(obj) {
   socCard.classList.add("card");
 
   const socImg = document.createElement("img");
+  socImg.src = obj.avatar_url;
   socCard.appendChild(socImg);
 
   const socInfo = document.createElement("div");
@@ -62,26 +78,32 @@ function createSocialCard(obj) {
   socCard.appendChild(socInfo);
 
   const socName = document.createElement("h3");
+  socName.textContent = obj.name;
   socName.classList.add("name");
   socInfo.appendChild(socName);
 
   const socUserName = document.createElement("p");
+  socUserName.textContent = `Github username: ${obj.login}`;
   socUserName.classList.add("username");
   socInfo.appendChild(socUserName);
 
   const socLocation = document.createElement("p");
+  socLocation.textContent = `Location: ${obj.location}`;
   socInfo.appendChild(socLocation);
 
   const socProfile = document.createElement("p");
   socInfo.appendChild(socProfile);
 
   const profileLink = document.createElement("a");
+  socProfile.textContent = `Profile URL: ${obj.html_url}`;
   socProfile.appendChild(profileLink);
 
   const socFollowers = document.createElement("p");
+  socFollowers.textContent = `Followers: ${obj.followers}`;
   socInfo.appendChild(socFollowers);
 
   const socFollowing = document.createElement("p");
+  socFollowing.textContent = `Following: ${obj.following}`;
   socInfo.appendChild(socFollowing);
 
   return socCard;
