@@ -3,6 +3,10 @@
            https://api.github.com/users/<your name>
 */
 
+// axios.get("https://api.github.com/users/bamfranceschi").then(response => {
+//   console.log(response);
+// });
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -45,6 +49,43 @@ const followersArray = [];
 </div>
 
 */
+
+function createSocialCard(obj) {
+  const socCard = document.createElement("div");
+  socCard.classList.add("card");
+
+  const socImg = document.createElement("img");
+  socCard.appendChild(socImg);
+
+  const socInfo = document.createElement("div");
+  socInfo.classList.add("card-info");
+  socCard.appendChild(socInfo);
+
+  const socName = document.createElement("h3");
+  socName.classList.add("name");
+  socInfo.appendChild(socName);
+
+  const socUserName = document.createElement("p");
+  socUserName.classList.add("username");
+  socInfo.appendChild(socUserName);
+
+  const socLocation = document.createElement("p");
+  socInfo.appendChild(socLocation);
+
+  const socProfile = document.createElement("p");
+  socInfo.appendChild(socProfile);
+
+  const profileLink = document.createElement("a");
+  socProfile.appendChild(profileLink);
+
+  const socFollowers = document.createElement("p");
+  socInfo.appendChild(socFollowers);
+
+  const socFollowing = document.createElement("p");
+  socInfo.appendChild(socFollowing);
+
+  return socCard;
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
