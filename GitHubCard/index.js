@@ -43,7 +43,21 @@ axios.get("https://api.github.com/users/bamfranceschi").then(response => {
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "squashgray",
+  "wchamber01",
+  "ElliotPhipps",
+  "crutledgedev",
+  "lukasjaronis"
+];
+
+followersArray.forEach(item => {
+  axios.get(`https://api.github.com/users/${item}`).then(response => {
+    let followerInfo = response.data;
+    const newSocCard = createSocialCard(followerInfo);
+    cardsDiv.appendChild(newSocCard);
+  });
+});
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -92,10 +106,12 @@ function createSocialCard(obj) {
   socInfo.appendChild(socLocation);
 
   const socProfile = document.createElement("p");
+  socProfile.textContent = "Profile:";
   socInfo.appendChild(socProfile);
 
   const profileLink = document.createElement("a");
-  socProfile.textContent = `Profile URL: ${obj.html_url}`;
+  profileLink.href = obj.html_url;
+  profileLink.textContent = obj.html_url;
   socProfile.appendChild(profileLink);
 
   const socFollowers = document.createElement("p");
@@ -105,6 +121,10 @@ function createSocialCard(obj) {
   const socFollowing = document.createElement("p");
   socFollowing.textContent = `Following: ${obj.following}`;
   socInfo.appendChild(socFollowing);
+
+  const socBio = document.createElement("p");
+  socBio.textContent = `Bio: ${obj.bio}`;
+  socInfo.appendChild(socBio);
 
   return socCard;
 }
